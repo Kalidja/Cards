@@ -5,6 +5,9 @@ class Card:
         self.value = value
 
 
+    def __repr__(self):
+        return f'({self.__class__.__name__}, {repr(self.value)})'
+
 class Heart(Card):
     def __init__(self, value: CardValue):
         super().__init__(value)

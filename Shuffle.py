@@ -29,7 +29,7 @@ class Shuffle:
         "разделить на 2 стопки, левую разделять еще на 2, и еще раз"
 
 
-        n = randint(7, 10)
+        n = randint(12, 15)
         index = 0
         for i in range(0, n):
             left = deck[len(deck) // 2:]
