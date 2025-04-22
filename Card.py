@@ -3,6 +3,7 @@ from CardValue import CardValue
 class Card:
     def __init__(self, value: CardValue):
         self.value = value
+        self.status: str = ""
 
 
     def __repr__(self):
