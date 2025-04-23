@@ -13,10 +13,6 @@ class Table:
         self.game_is_started = False
 
     def _parce_game_settings(self) -> None:
-        if self.game.even_number_of_players and self.table_number % 2 == 0:
-            self.max_players = self.game.even_number_of_players
-        else:
-            raise ValueError(f"Table number {self.table_number} is not even")
         if self.game.dealer:
             self.dealer = self.game.dealer
         self.deck = self.game.deck
@@ -26,7 +22,7 @@ class Table:
             raise ValueError(f"Game already started")
         if not self.table_is_full:
             self.players.append(player)
-            if len(self.players) == self.max_players:
+            if len(self.players) == self.game.max_players:
                 self.table_is_full = True
         else:
             raise ValueError(f"Table number {self.table_number} is full")

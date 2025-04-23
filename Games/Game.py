@@ -7,28 +7,38 @@ from Persons.Player import Player
 
 
 class Game:
-    def __init__(self, max_players: int, deck: Deck, even_number_of_players: bool, dealer: Optional[Dealer] = None) -> None:
-        self.dealer = dealer
-        self.max_count_players = max_players
-        self.even_number_of_players = even_number_of_players
+    def __init__(self, max_players: int, deck: Deck, dealer: Optional[Dealer] = None) -> None:
         self.deck = deck
-        self.players: List[Player] = []
-        self.dealer = dealer
+        self.max_players = max_players
+        if dealer:
+            self.dealer = dealer
+        self._players: List[Player] = []
+        self.discards: List[Card] = []
+        self.cards_in_game: Dict[Person, List[Card]] = {}
 
     def set_players(self, players: List[Player]) -> None:
-        self.players = players
+            self._players = players
 
-    def shuffle_deck(self, funk: Callable[[List[Card]], List[Card]]) -> None:
-        self.deck.shuffle(funk)
-
-    def split_deck(self) -> Dict["Person", "Deck"]:
+    def split_deck(self) -> None:
         pass
 
-    def next_turn(self) -> None:
+    def new_turn(self) -> None:
         pass
 
-    def player_move(self) -> None:
+    def start_game(self) -> None:
         pass
 
-    def dealer_move(self) -> None:
+    def end_game(self) -> None:
         pass
+
+    def check_turn_winner(self) -> None:
+        pass
+
+    def check_winner(self) -> None:
+        pass
+
+    def eliminate_looser(self, player: Player) -> None:
+        if self._players:
+            self._players.remove(player)
+        else:
+            raise Exception("No players left.")

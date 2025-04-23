@@ -12,15 +12,13 @@ class Deck:
     def __init__(self, cards: Optional[Iterable[Card]] = None,) -> None:
         if cards:
             self.deck = list(cards)
-            self.order = list(cards)
         else:
             self.deck = []
-            self.order = []
             self._make_deck()
 
     def shuffle(self, func: Optional[Callable[[List[Card]], List[Card]]] = None) -> None:
         if func:
-            self.order = func(self.order)
+            self.deck = func(self.deck)
 
     def _make_deck(self) -> None:
         pass
@@ -35,7 +33,6 @@ class Deck32(Deck):
         if not self.deck:
             for i in card_list[:9]:
                 self.deck.extend(self._make_full_suit(i))
-                self.order.extend(self._make_full_suit(i))
 
 
 class Deck52(Deck):
@@ -43,7 +40,7 @@ class Deck52(Deck):
         if not self.deck:
             for i in card_list:
                 self.deck.extend(self._make_full_suit(i))
-                self.order.extend(self._make_full_suit(i))
+
 
 
 class CustomDeck(Deck):
