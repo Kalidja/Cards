@@ -9,70 +9,70 @@ class CardValue:
 
 
 class Jocker(CardValue):
-    def __init__(self):
+    def __init__(self, value: int):
         super().__init__(13)
 
 
 class Ace(CardValue):
-    def __init__(self):
-        super().__init__(12)
+    def __init__(self, value: int):
+        super().__init__(value)
 
 
 class King(CardValue):
-    def __init__(self):
-        super().__init__(11)
+    def __init__(self, value: int):
+        super().__init__(value)
 
 
 class Queen(CardValue):
-    def __init__(self):
-        super().__init__(10)
+    def __init__(self, value: int):
+        super().__init__(value)
 
 
 class Jack(CardValue):
-    def __init__(self):
-        super().__init__(9)
+    def __init__(self, value: int):
+        super().__init__(value)
 
 
 class Ten(CardValue):
-    def __init__(self):
-        super().__init__(8)
+    def __init__(self, value: int):
+        super().__init__(value)
 
 
 class Nine(CardValue):
-    def __init__(self):
-        super().__init__(7)
+    def __init__(self, value: int):
+        super().__init__(value)
 
 
 class Eight(CardValue):
-    def __init__(self):
-        super().__init__(6)
+    def __init__(self, value: int):
+        super().__init__(value)
 
 
 class Seven(CardValue):
-    def __init__(self):
-        super().__init__(5)
+    def __init__(self, value: int):
+        super().__init__(value)
 
 
 class Six(CardValue):
-    def __init__(self):
-        super().__init__(4)
+    def __init__(self, value: int):
+        super().__init__(value)
 
 
 class Five(CardValue):
-    def __init__(self):
-        super().__init__(3)
+    def __init__(self, value: int):
+        super().__init__(value)
 
 
 class Four(CardValue):
-    def __init__(self):
-        super().__init__(2)
+    def __init__(self, value: int):
+        super().__init__(value)
 
 
 class Three(CardValue):
-    def __init__(self):
-        super().__init__(1)
+    def __init__(self, value: int):
+        super().__init__(value)
 
 
 class Two(CardValue):
-    def __init__(self):
-        super().__init__(0)
+    def __init__(self, value: int):
+        super().__init__(value)
