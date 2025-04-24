@@ -112,10 +112,12 @@ class TheDrunkard(Game):
         return self.check_drunk()
 
     def check_turn_winner(self) -> Union[Person, None]:
-        last_played_cards = [cards[-1] for cards in self.cards_in_game.values() if cards]
+        max_len = len(max(self.cards_in_game.values(), key= lambda x: len(x)))
+        last_played_cards = [cards[-1] for cards in self.cards_in_game.values() if cards and len(cards) == max_len]
         if deck.min_card in last_played_cards and deck.max_card in last_played_cards:
-            return min(self.cards_in_game.items(), key=lambda x: x[1][-1].value.value)[0]
-        return max(self.cards_in_game.items(), key=lambda x: x[1][-1].value.value)[0]
+            return min(filter(lambda x: len(x[1]) == max_len, self.cards_in_game.items()), key=lambda x: x[1][-1].value.value)[0]
+        return max(filter(lambda x: len(x[1]) == max_len, self.cards_in_game.items()), key=lambda x: x[1][-1].value.value)[0]
+
 
     def from_table_to_player(self, player: Person) -> None:
         for i in self._players:
