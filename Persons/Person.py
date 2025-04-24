@@ -22,4 +22,4 @@ class Person:
         return None
 
     def __repr__(self) -> str:
-        return f"Person(name={self.name}, hand={self.hand})"
+        return f"Person(name={self.name}, {len(self.hand)} hand={self.hand})"

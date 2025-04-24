@@ -42,7 +42,7 @@ class TheDrunkard(Game):
     def new_turn(self) -> bool:
         self.check_players_without_cards()
         self.turns += 1
-        self.logger.log("Turn #{}".format(self.turns))
+        self.logger.log("Turn #{}".format(self.turns), empty_row = True)
 
         for i in self.cards_in_game:
             self.cards_in_game[i].clear()
@@ -51,6 +51,7 @@ class TheDrunkard(Game):
             self._temp_deck_from_elem_players.clear()
 
         for i in self._players:
+            self.logger.log(repr(i))
             self.cards_in_game[i].append(i.hand.pop(0))
 
         drinkers = self.check_drunk()
@@ -59,19 +60,27 @@ class TheDrunkard(Game):
         p = self.check_turn_winner()
         self.logger.log("Winner on turn #{0} is {1}".format(self.turns, p.name))
         self.from_table_to_player(p)
-        print(p.hand)
+
+        self.logger.log(f"At the end of Turn #{self.turns}, players hands:")
+        for i in self._players:
+            self.logger.log(f"{i.name}: {i.hand}", level=1)
+
         return self.check_winner()
 
 
     def check_drunk(self) -> Union[List[Tuple[Person, Person]], None]:
-        max_cards = max([len(x) for x in self.cards_in_game.values()])
         single_cards: Dict[Type, Person] = {}
         pairs: List[Tuple[Person, Person]] = []
 
         self.logger.log("Check drunk...")
+        self.logger.log(f"Players hands:")
+        for i in self.cards_in_game:
+            self.logger.log(repr(i), level=1)
+        self.logger.log(f"Cards in game:")
+        for i in self.cards_in_game:
+            self.logger.log(repr(self.cards_in_game[i]), level=1)
         for i, v in self.cards_in_game.items():
-            if len(v) < max_cards:
-                continue
+
             last_card_type = type(v[-1].value)
             if last_card_type in single_cards:
                 if not pairs:
@@ -88,29 +97,32 @@ class TheDrunkard(Game):
         return pairs if pairs else None
 
     def drunk(self, drinkers: List[Tuple[Person, Person]]) -> List[Tuple[Person, Person]]:
+        self.logger.log(f"Drinking persons: {drinkers}")
         for i in drinkers:
             for j in i:
                 try:
                     self.cards_in_game[j].append(j.hand.pop(0))
                     self.cards_in_game[j].append(j.hand.pop(0))
                 except IndexError:
-                    print(f"У игрока {j.name} закончились карты. Пропускаем.")
+                    self.logger.log(f"Player {j.name} is run out of cards")
                     self._temp_deck_from_elem_players.extend(self.cards_in_game[j])
                     self.eliminate_looser(j)
                     self.cards_in_game.pop(j)
                     continue
         return self.check_drunk()
 
-
     def check_turn_winner(self) -> Union[Person, None]:
+        last_played_cards = [cards[-1] for cards in self.cards_in_game.values() if cards]
+        if deck.min_card in last_played_cards and deck.max_card in last_played_cards:
+            return min(self.cards_in_game.items(), key=lambda x: x[1][-1].value.value)[0]
         return max(self.cards_in_game.items(), key=lambda x: x[1][-1].value.value)[0]
 
     def from_table_to_player(self, player: Person) -> None:
         for i in self._players:
             if i == player:
                 for j in self.cards_in_game.keys():
-                    i.hand = self.cards_in_game[j] + i.hand
-                i.hand = self._temp_deck_from_elem_players + i.hand
+                    i.hand.extend(self.cards_in_game[j][::-1])
+                i.hand.extend(self._temp_deck_from_elem_players)
 
     def check_winner(self) -> bool:
         return False if len(self._players) == 1 else True

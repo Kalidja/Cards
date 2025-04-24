@@ -15,10 +15,10 @@ class Logger:
         else:
             raise Exception("No file opened.")
 
-    def log(self, value: str, empty_row: bool = None, level: int = 0) -> None:
+    def log(self, value: str, empty_row: bool = False, level: int = 0) -> None:
         try:
             if empty_row:
-                self._file.write("")
+                self._file.write("\n")
             self._file.write("  " * level + f"{value}\n")
         except Exception as e:
             print(e)

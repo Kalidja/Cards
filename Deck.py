@@ -8,8 +8,10 @@ card_list = [(Ace, 12), (King, 11), (Queen, 10), (Jack, 9), (Ten, 8), (Nine, 7),
 
 
 class Deck:
-    def __init__(self, cards: Optional[Iterable[Card]] = None,) -> None:
+    def __init__(self, cards: Optional[Iterable[Card]] = None) -> None:
         self.cards_value: Dict[Type[CardValue], int] = {}
+        self.min_card: Optional[Card] = None
+        self.max_card: Optional[Card] = None
         if cards:
             self.deck = list(cards)
             self._set_card_value_dict()
@@ -31,7 +33,8 @@ class Deck:
     def _set_card_value_dict(self):
         for card in self.deck:
             self.cards_value[type(card.value)] = card.value.value
-
+        self.min_card = min(self.cards_value.items(), key=lambda x: x[1])[0]
+        self.max_card = max(self.cards_value.items(), key=lambda x: x[1])[0]
 
 class Deck32(Deck):
     def _make_deck(self) -> None:
