@@ -1,4 +1,4 @@
-from typing import Callable
+from typing import Callable, Union, Iterable
 from Card import Card
 from Hand import Hand
 
@@ -6,7 +6,7 @@ from Hand import Hand
 class Person:
     def __init__(self, name: str) -> None:
         self.name = name
-        self.hand: Hand = Hand()
+        self.hand: Union[Hand, Iterable[Card]] = Hand()
 
     def draw_card(self, card: Card) -> None:
         self.hand.append(card)
@@ -20,3 +20,6 @@ class Person:
         if self.hand:
             return self.hand.pop(index)
         return None
+
+    def __repr__(self) -> str:
+        return f"Person(name={self.name}, hand={self.hand})"

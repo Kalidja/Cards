@@ -4,6 +4,7 @@ from typing import List, Callable, Optional, Dict, Union
 from Persons.Dealer import Dealer
 from Persons.Person import Person
 from Persons.Player import Player
+from Logger import Logger
 
 
 class Game:
@@ -15,6 +16,7 @@ class Game:
         self._players: List[Player] = []
         self.discards: List[Card] = []
         self.cards_in_game: Dict[Person, List[Card]] = {}
+        self.logger: Logger = Logger(self.__class__.__name__)
 
     def set_players(self, players: List[Player]) -> None:
             self._players = players
@@ -42,3 +44,4 @@ class Game:
             self._players.remove(player)
         else:
             raise Exception("No players left.")
+
