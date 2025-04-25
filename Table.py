@@ -41,4 +41,5 @@ class Table:
         else:
             self.game_is_started = True
             self.game.set_players(self.players)
+            self.game.start_game()
 

@@ -1,4 +1,4 @@
-from typing import Callable, Union, Iterable
+from typing import Optional, Union, Iterable
 from Card import Card
 from Hand import Hand
 
@@ -11,10 +11,11 @@ class Person:
     def draw_card(self, card: Card) -> None:
         self.hand.append(card)
 
-    def play_first_card(self) -> None:
-        if self.hand:
+    def play_first_card(self) -> Optional[Card]:
+        try:
             return self.hand.pop(0)
-        return None
+        except IndexError:
+            raise IndexError
 
     def play_card(self, index: int) -> None:
         if self.hand:
