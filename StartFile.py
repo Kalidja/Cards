@@ -1,9 +1,9 @@
 from Games import TheDrunkard
 from Table import Table
 from Persons.Player import Player
-import Deck
+from Deck import Deck32
 
-game = TheDrunkard.TheDrunkard(Deck.Deck())
+game = TheDrunkard.TheDrunkard(deck= Deck32())
 
 p1 = Player("p1")
 p2 = Player("p2")

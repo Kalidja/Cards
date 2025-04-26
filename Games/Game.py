@@ -11,8 +11,7 @@ class Game:
     def __init__(self, max_players: int, deck: Deck, dealer: Optional[Dealer] = None) -> None:
         self.deck = deck
         self.max_players = max_players
-        if dealer:
-            self.dealer = dealer
+        self.dealer = dealer
         self._players: List[Player] = []
         self.discards: List[Card] = []
         self.cards_in_game: Dict[Person, List[Card]] = {}

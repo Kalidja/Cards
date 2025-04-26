@@ -26,7 +26,6 @@ class TheDrunkard(Game):
         for player in self._players:
             self.cards_in_game[player] = []
         self.deck.shuffle(Shuffle.swing_card)
-        shuffle(self.deck.deck)
         self.logger.log("Deck shuffled...")
         self.split_deck()
         self.logger.log("Deck split...")
